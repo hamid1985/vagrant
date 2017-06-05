@@ -1,6 +1,8 @@
 ---
 # Role for the VPC
-
+#- name: Including Variables
+#  include_vars:
+#    file: main.yml
 - template:
     src: vpc.py.tpl
     dest: /vagrant/project/troposphere/src/vpc.py

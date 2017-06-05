@@ -1,0 +1,24 @@
+---
+# Role for the VPC
+#- name: Including Variables
+#  include_vars:
+#    file: main.yml
+- template:
+    src: vpc.py.tpl
+    dest: /vagrant/project/troposphere/src/vpc.py
+    mode: 755
+
+- name: Generate CloudFormation templates from troposphere
+  command: python ../../troposphere/src/{{ item }}.py
+  with_items: vpc
+
+- name: Run the VPC CloudFormation
+  cloudformation:
+    stack_name: "{{ stack_name }}"
+    state: present
+    region: "us-east-1"
+    template: /vagrant/project/ansible/roles/vpc/files/vpc.json
+    template_parameters:
+      stackname: "{{ stack_name }}"
+    tags:
+      Stackname: "{{ stack_name }}"

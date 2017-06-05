@@ -1,0 +1,7 @@
+---
+- name: Run the VPC Role
+  hosts: localhost
+  gather_facts: False
+  connection: local
+  roles:
+    - vpc
